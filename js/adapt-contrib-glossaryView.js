@@ -5,14 +5,14 @@ define([
 
   var GlossaryView = Backbone.View.extend({
 
-    className: "glossary",
+    className: "m-glossary",
 
     events: {
-      'keyup input.glossary-textbox': 'onInputTextBoxValueChange',
-      'input input.glossary-textbox': 'onInputTextBoxValueChange',
-      'paste input.glossary-textbox': 'onInputTextBoxValueChange',
-      'change input.glossary-checkbox': 'onInputTextBoxValueChange',
-      'click .glossary-cancel-button': 'onCancelButtonClick'
+      'keyup .js-glossary-item-input-textbox': 'onInputTextBoxValueChange',
+      'input .js-glossary-item-input-textbox': 'onInputTextBoxValueChange',
+      'paste .js-glossary-item-input-textbox': 'onInputTextBoxValueChange',
+      'change .js-glossary-item-input-textbox': 'onInputTextBoxValueChange',
+      'click .js-glossary-cancel': 'onCancelButtonClick'
     },
 
     itemViews: null,
@@ -40,10 +40,6 @@ define([
     },
 
     remove: function() {
-      if($('html').is('.ie8')) {
-        this.$('.input.glossary-textbox').off('propertychange', this.onInputTextBoxValueChange);
-      }
-
       this.itemViews = null;
 
       Backbone.View.prototype.remove.apply(this, arguments);
@@ -74,7 +70,7 @@ define([
 
     renderGlossaryItems: function() {
       this.itemViews = [];
-      var $glossaryItemContainer = this.$('.glossary-items-container').empty();
+      var $glossaryItemContainer = this.$('.js-glossary-item-container').empty();
       _.each(this.collection.models, function(item, index) {
         var itemView = new GlossaryItemView({model: item});
         itemView.$el.appendTo($glossaryItemContainer);
@@ -88,30 +84,26 @@ define([
         'drawer:openedItemView': this.remove,
         'drawer:triggerCustomView': this.remove
       });
-
-      if($('html').is('.ie8')) {
-        this.$('.input.glossary-textbox').on('propertychange', this.onInputTextBoxValueChange);
-      }
     },
 
     onInputTextBoxValueChange: _.debounce(function(event) {
       this.showItemNotFoundMessage(false);
-      var searchItem = this.$('input.glossary-textbox').val().toLowerCase();
-      var shouldSearchInDescription = this.$('input.glossary-checkbox').is(":checked");
+      var searchItem = this.$('.js-glossary-item-input-textbox').val().toLowerCase();
+      var shouldSearchInDescription = this.$('.js-glossary-item-input-checkbox').is(":checked");
 
       if(searchItem.length > 0) {
-        this.$('.glossary-cancel-button').removeClass('display-none');
+        this.$('.js-glossary-cancel').removeClass('u-display-none');
         var filteredItems = this.getFilteredGlossaryItems(searchItem, shouldSearchInDescription);
         this.showFilterGlossaryItems(filteredItems);
       } else {
-        this.$('.glossary-cancel-button').addClass('display-none');
+        this.$('.js-glossary-cancel').addClass('u-display-none');
         this.showGlossaryItems(true);
       }
     }, 200),
 
     onCancelButtonClick: function(event) {
       if(event && event.preventDefault) event.preventDefault();
-      this.$('input.glossary-textbox').val("").trigger("input");
+      this.$('.js-glossary-item-input-textbox').val("").trigger("input");
     },
 
     // create array of filtered items on basis of supplied arguments.
@@ -144,12 +136,12 @@ define([
 
     // show/hide the item not found message.
     showItemNotFoundMessage: function(_isVisible) {
-      var $itemNotFound = this.$('.glossary-item-not-found');
+      var $itemNotFound = this.$('.js-glossary-item-not-found');
 
-      if(!_isVisible && !$itemNotFound.hasClass('display-none')) {
-        $itemNotFound.addClass('display-none');
-      } else if(_isVisible && $itemNotFound.hasClass('display-none')) {
-        $itemNotFound.removeClass('display-none');
+      if(!_isVisible && !$itemNotFound.hasClass('u-display-none')) {
+        $itemNotFound.addClass('u-display-none');
+      } else if(_isVisible && $itemNotFound.hasClass('u-display-none')) {
+        $itemNotFound.removeClass('u-display-none');
       }
     },
 

@@ -1,20 +1,37 @@
-<div class="glossary-inner" role="complementary">
+<div class="m-glossary__inner" role="complementary">
 
-  <div class="glossary-textbox-container">
-    <label for="glossarySearch" class="glossary-textbox-label icon icon-search"></label>
-    <input id="glossarySearch" type="text" placeholder="{{{searchPlaceholder}}}" class="glossary-textbox">
-    <div class="glossary-cancel-button icon icon-cross display-none"></div>
+  <div class="m-glossary__textbox-container">
+
+    <label class="m-glossary__textbox-label" for="glossarySearch"></label>
+    <input class="m-glossary__textbox-input js-glossary-item-input-textbox" id="glossarySearch" type="text" placeholder="{{{searchPlaceholder}}}">
+
+    <div class="m-glossary__textbox-icon">
+      <div class="icon"></div>
+    </div>
+
+    <button class="btn-icon m-glossary__textbox-cancel-icon js-glossary-cancel u-display-none">
+      <div class="icon"></div>
+    </button>
+
   </div>
 
-  <div class="glossary-checkbox-container">
-    <input id="glossaryCheckbox" type="checkbox" class="glossary-checkbox">
-    <label for="glossaryCheckbox" class="glossary-checkbox-label">{{{searchWithInDescriptionLabel}}}</label>
+  <div class="m-glossary__checkbox-container">
+
+    <input class="m-glossary__checkbox-input js-glossary-item-input-checkbox" id="glossaryCheckbox" type="checkbox">
+    <label class="m-glossary__checkbox-label" for="glossaryCheckbox">
+      {{{searchWithInDescriptionLabel}}}
+    </label>
+
   </div>
 
-  <div class="glossary-items-container"></div>
+  <div class="m-glossary__items-container js-glossary-item-container">
+    {{!-- Glossary items render here --}}
+  </div>
 
-  <div class="glossary-item-not-found h6 display-none">
-    {{{itemNotFoundMessage}}}
+  <div class="m-glossary__item-not-found js-glossary-item-not-found u-display-none">
+    <div class="m-glossary__item-not-found-inner">
+      {{{itemNotFoundMessage}}}
+    </div>
   </div>
 
 </div>

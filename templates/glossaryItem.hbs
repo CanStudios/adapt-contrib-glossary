@@ -1,11 +1,13 @@
-<button class="base glossary-item-term" tabindex="0" role="button" aria-expanded="false" aria-label="{{{term}}}">
-  <div class="glossary-item-term-inner h5">
-    {{{term}}}
+<button class="btn-text m-glossary__item-btn js-glossary-item" aria-expanded="false" aria-label="{{{term}}}" {{{a11y_attrs_heading "component"}}}>
+  <div class="m-glossary__item-term">
+    <div class="m-glossary__item-term-inner">
+      {{{term}}}
+    </div>
   </div>
 </button>
 
-<div class="glossary-item-description">
-  <div class="glossary-item-description-inner">
+<div class="m-glossary__item-description js-glossary-item-description">
+  <div class="m-glossary__item-description-inner">
     {{{a11y_text description}}}
   </div>
 </div>
